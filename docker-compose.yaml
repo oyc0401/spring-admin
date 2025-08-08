@@ -6,6 +6,7 @@ services:
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana:10.3.1
@@ -15,6 +16,18 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - grafana-storage:/var/lib/grafana
+    restart: unless-stopped
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "9090:8080"     # 브라우저 접속 포트 변경
+      - "50000:50000"   # 에이전트 연결 포트
+    volumes:
+      - jenkins-home:/var/jenkins_home
+    restart: unless-stopped
 
 volumes:
   grafana-storage:
+  jenkins-home:
