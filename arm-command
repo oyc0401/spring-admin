@@ -25,9 +25,9 @@ docker compose version
 sudo dnf install -y git
 
 # 프로젝트 실행
-git clone https:/dsad
+git clone https://github.com/oyc0401/spring-loki.git
 
-cd dsadadsa
+cd spring-loki
 
 docker compose up -d --build
 
@@ -35,5 +35,5 @@ docker compose up -d --build
 docker compose ps
 
 
-## 젠킨스 초기에만!
+## 젠킨스 초기에 비번찾기!
 docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword

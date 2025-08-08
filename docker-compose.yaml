@@ -21,6 +21,9 @@ services:
   jenkins:
     image: jenkins/jenkins:lts-jdk17
     container_name: jenkins
+    environment:
+      - JAVA_HOME=/opt/java/openjdk
+      - PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     ports:
       - "9090:8080"
       - "50000:50000"
