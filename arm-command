@@ -1,0 +1,21 @@
+sudo dnf -y update
+
+# 도커 설치
+sudo dnf -y install docker
+sudo systemctl enable --now docker
+sudo usermod -aG docker ec2-user
+
+## 서버 ssh 나갔다가 오기
+exit
+# <- 다시 접속
+
+sudo install -d -m 0755 /usr/local/lib/docker/cli-plugins
+
+sudo curl -fL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-aarch64 \
+  -o /usr/local/lib/docker/cli-plugins/docker-compose
+
+sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+
+# 동작 확인
+docker --version
+docker compose version

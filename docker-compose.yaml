@@ -19,14 +19,18 @@ services:
     restart: unless-stopped
 
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: ./jenkins
     container_name: jenkins
     ports:
-      - "9090:8080"     # 브라우저 접속 포트 변경
-      - "50000:50000"   # 에이전트 연결 포트
+      - "9090:8080"     # 웹 UI
+      - "50000:50000"   # (선택) 에이전트 JNLP
     volumes:
-      - jenkins-home:/var/jenkins_home
+      - jenkins-home:/var/jenkins_home        # 젠킨스 데이터 영구화
+      - /var/run/docker.sock:/var/run/docker.sock  # 호스트 Docker 사용(DooD)
     restart: unless-stopped
+    # (리눅스 권한 문제 시)
+    # user: "1000:1000"
 
 volumes:
   grafana-storage:
