@@ -33,3 +33,7 @@ docker compose up -d --build
 
 
 docker compose ps
+
+
+## 젠킨스 초기에만!
+docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
