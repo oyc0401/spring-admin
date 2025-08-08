@@ -19,3 +19,17 @@ sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
 # 동작 확인
 docker --version
 docker compose version
+
+
+
+sudo dnf install -y git
+
+# 프로젝트 실행
+git clone https:/dsad
+
+cd dsadadsa
+
+docker compose up -d --build
+
+
+docker compose ps
