@@ -23,7 +23,7 @@ pipeline {
                             # 1) 디렉토리 생성 & compose 파일 복사
                             mkdir -p $REMOTE_PATH
                         '
-                        scp -o StrictHostKeyChecking=no docker-compose.yml $REMOTE_HOST:$REMOTE_PATH/docker-compose.yml
+                        scp -o StrictHostKeyChecking=no docker-compose.yaml $REMOTE_HOST:$REMOTE_PATH/docker-compose.yml
 
                         # 2) 컨테이너 재시작
                         ssh -o StrictHostKeyChecking=no $REMOTE_HOST '
