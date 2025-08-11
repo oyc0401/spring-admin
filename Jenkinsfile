@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REMOTE_HOST = 'ubuntu@43.203.39.226'          // EC2 접속 계정/주소
+        REMOTE_HOST = 'ubuntu@43.201.125.168'          // EC2 접속 계정/주소
         REMOTE_PATH = '/home/ubuntu/admin-docker' // docker-compose.yml 있는 경로
     }
 
