@@ -1,40 +1,22 @@
-version: '3'
+version: '3.8'
 
 services:
-  loki:
-    image: grafana/loki:2.9.4
-    ports:
-      - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
-    restart: unless-stopped
-
-  grafana:
-    image: grafana/grafana:10.3.1
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-    volumes:
-      - grafana-storage:/var/lib/grafana
-    restart: unless-stopped
-
   jenkins:
     image: jenkins/jenkins:lts-jdk17
     container_name: jenkins
-    environment:
-      - JAVA_HOME=/opt/java/openjdk
-      - PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     ports:
       - "9090:8080"
       - "50000:50000"
     volumes:
       - jenkins-home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock            # 호스트 Docker 데몬
-      - /usr/bin/docker:/usr/bin/docker                      # 호스트 docker CLI
-      - /usr/local/lib/docker/cli-plugins:/usr/local/lib/docker/cli-plugins   # compose/buildx 플러그인 경로
-      - /usr/libexec/docker/cli-plugins:/usr/libexec/docker/cli-plugins       # (일부 환경용 추가 경로)
+      - /var/run/docker.sock:/var/run/docker.sock           # 호스트 Docker 데몬
+      - /usr/bin/docker:/usr/bin/docker                     # 호스트 docker CLI
+      - /usr/libexec/docker/cli-plugins:/usr/libexec/docker/cli-plugins:ro       # Compose/Buildx 플러그인 경로(우분투 공식 도커 패키지 기준)
+    group_add:
+      - "${DOCKER_GID}"   # 호스트 docker 그룹 GID
     restart: unless-stopped
+    # 초기 접근권한 문제를 피하려면 root로 시작 후 Jenkins 내부에서 권한 조정해도 됩니다.
+    # user: root
 
 volumes:
-  grafana-storage:
   jenkins-home:

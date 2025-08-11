@@ -1,0 +1,57 @@
+# 시스템 업데이트
+sudo dnf update
+sudo dnf install docker -y
+
+# Docker 서비스 시작
+sudo systemctl start docker
+
+# Docker 서비스를 운영체제 부팅시 자동 시작하도록 설정
+sudo systemctl enable docker
+
+# docker 명령어를 sudo 없이 사용하기 위해 계정을 docker 그룹에 소속 (계정 재접속 필요)
+sudo usermod -aG docker $USER
+newgrp docker
+
+sudo systemctl enable --now docker
+
+# 설치된 Docker 버전 확인
+docker --version
+
+## Docker Compose 설치
+# 최신 버전 번호 가져오기
+VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest \
+  | grep tag_name | cut -d '"' -f 4)
+
+# 플러그인 경로 만들기
+sudo mkdir -p /usr/local/lib/docker/cli-plugins
+
+# 최신 버전 다운로드
+sudo curl -L "https://github.com/docker/compose/releases/download/${VERSION}/docker-compose-$(uname -s)-$(uname -m)" \
+  -o /usr/local/lib/docker/cli-plugins/docker-compose
+
+# 실행 권한 부여
+sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+
+# 버전 확인
+docker compose version
+
+
+
+# git
+sudo dnf -y install git
+
+# 프로젝트 실행
+git clone https://github.com/oyc0401/spring-loki.git
+cd spring-loki
+docker compose up -d --build
+docker compose ps
+
+# (compose로 띄운) jenkins 컨테이너 초기 비번
+docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+
+
+
+# mysql 설치
+sudo dnf install -y https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
+
+sudo dnf install -y mysql
