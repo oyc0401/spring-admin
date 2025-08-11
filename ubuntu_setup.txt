@@ -12,3 +12,8 @@ sudo systemctl enable --now docker
 
 docker --version
 docker compose version
+
+
+
+## 젠킨스 초기에 비번찾기!
+docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
