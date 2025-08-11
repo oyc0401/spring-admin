@@ -12,8 +12,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock           # 호스트 Docker 데몬
       - /usr/bin/docker:/usr/bin/docker                     # 호스트 docker CLI
       - /usr/libexec/docker/cli-plugins:/usr/libexec/docker/cli-plugins:ro       # Compose/Buildx 플러그인 경로(우분투 공식 도커 패키지 기준)
-    group_add:
-      - "${DOCKER_GID}"   # 호스트 docker 그룹 GID
     restart: unless-stopped
     # 초기 접근권한 문제를 피하려면 root로 시작 후 Jenkins 내부에서 권한 조정해도 됩니다.
     # user: root
